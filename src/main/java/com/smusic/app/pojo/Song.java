@@ -1,8 +1,5 @@
 package com.smusic.app.pojo;
 
-/**
- * Created by sergey on 28.04.17.
- */
 public class Song {
     private String id;
     private Integer duration;
@@ -11,6 +8,9 @@ public class Song {
     private String link;
     private String rate;
     private String size;
+
+    public Song() {
+    }
 
     public Song(String id, Integer duration, String singer, String songName, String link, String rate, String size) {
         this.id = id;
@@ -21,6 +21,18 @@ public class Song {
         this.rate = rate;
         this.size = size;
     }
+
+//    public static Song createSongFromMap(Map<String, String> songMap) {
+//        return new Song(
+//                songMap.get(SongFields.FILE_ID),
+//                Integer.parseInt(songMap.get(SongFields.DURATION)),
+//                songMap.get(SongFields.SINGER),
+//                songMap.get(SongFields.SONG_NAME),
+//                songMap.get(SongFields.LINK),
+//                songMap.get(SongFields.RATE),
+//                songMap.get(SongFields.SIZE)
+//        );
+//    }
 
     public String getId() {
         return id;

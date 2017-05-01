@@ -4,7 +4,7 @@ import com.smusic.app.pojo.Song;
 import com.smusic.app.pojo.SongFields;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,9 +22,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by sergey on 28.04.17.
- */
+@Component
 public class PleerNetService implements MusicService {
     private static String OS_MEDIA_LIBRARY_PATH = "/Users/sergey/Downloads/smusic/";
     private static String SERVICE_URL = "http://pleer.net";
@@ -63,7 +61,8 @@ public class PleerNetService implements MusicService {
                     columnMap.put(key, keyValue[1].replaceAll("[\"\']", ""));
                 }
             }
-            result.add(new Song(
+            result.add(
+                    new Song(
                     columnMap.get(SongFields.FILE_ID),
                     Integer.parseInt(columnMap.get(SongFields.DURATION)),
                     columnMap.get(SongFields.SINGER),
