@@ -2,8 +2,10 @@ package com.smusic.app.service;
 
 import com.smusic.app.pojo.Song;
 import com.smusic.app.pojo.SongFields;
+import com.smusic.app.pojo.SongWithLink;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -63,14 +65,14 @@ public class PleerNetService implements MusicService {
             }
             result.add(
                     new Song(
-                    columnMap.get(SongFields.FILE_ID),
-                    Integer.parseInt(columnMap.get(SongFields.DURATION)),
-                    columnMap.get(SongFields.SINGER),
-                    columnMap.get(SongFields.SONG_NAME),
-                    columnMap.get(SongFields.LINK),
-                    columnMap.get(SongFields.RATE),
-                    columnMap.get(SongFields.SIZE)
-            ));
+                            columnMap.get(SongFields.FILE_ID),
+                            Integer.parseInt(columnMap.get(SongFields.DURATION)),
+                            columnMap.get(SongFields.SINGER),
+                            columnMap.get(SongFields.SONG_NAME),
+                            columnMap.get(SongFields.LINK),
+                            columnMap.get(SongFields.RATE),
+                            columnMap.get(SongFields.SIZE)
+                    ));
         }
         return result;
 
@@ -99,6 +101,19 @@ public class PleerNetService implements MusicService {
     public List<Song> search(String songName) {
         String resultString = getResponse(SERVICE_URL + SEARCH_POSTFIX + songName, "GET");
         return searchResultParser(resultString);
+    }
+
+    public String getSongUrl(String songLink) {
+        String resultString = getResponse(SERVICE_URL + DOWNLOAD_POSTFIX + songLink, "POST");
+        JSONParser parser = new JSONParser();
+        Object response = null;
+        try {
+            response = parser.parse(resultString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String songUrl = (String) ((JSONObject) response).get("track_link");
+        return songUrl;
     }
 
     public void downloadSong(Song song) {

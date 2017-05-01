@@ -36,4 +36,8 @@ public class HelloController {
         return "OK";
     }
 
+    @RequestMapping(value = "/getSongUrl", method = RequestMethod.GET)
+    public String getSongUrl(@RequestParam String songLink) {
+        return pleerNetService.getSongUrl(songLink);
+    }
 }
