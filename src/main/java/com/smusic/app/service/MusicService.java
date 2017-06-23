@@ -14,4 +14,6 @@ public interface MusicService {
     void downloadSong(Song song);
 
     String getSongUrl(String songLink);
+
+    String getListOfSongs(String token);
 }
