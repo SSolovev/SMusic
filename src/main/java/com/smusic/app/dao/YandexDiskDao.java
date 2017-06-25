@@ -64,12 +64,12 @@ public class YandexDiskDao implements CloudDAO {
 
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
                 String.class);
-        logger.debug("Uploading complete songName:{}, songUrl:{}, responce:{}", songName, songUrl, result);
+        logger.debug("Uploading complete songName:{}, songUrl:{}, responce:{}", songName, songUrl, result.getBody());
     }
 
 
     public String getToken(String code) {
-
+        logger.debug("Requesting token for code:{} ", code);
         HttpEntity<MultiValueMap<String, String>> requestEntity = HttpEntityBuilder.getInstance()
                 .addHeaderValue("Content-type", "application/x-www-form-urlencoded")
                 .addBodyValue("grant_type", "authorization_code")
@@ -79,7 +79,7 @@ public class YandexDiskDao implements CloudDAO {
                 .build();
 
         ResponseEntity<Token> result = restTemplate.postForEntity(tokenUrl, requestEntity, Token.class);
-        logger.debug("Received token for code:{} response:{}", code, result);
+        logger.debug("Received token for code:{} status:{} expire:{}", code, result.getStatusCode(), result.getBody().getExpires_in());
         return result.getBody().getAccess_token();
     }
 
