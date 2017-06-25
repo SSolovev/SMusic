@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -31,7 +32,7 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if (!((RequestFacade) servletRequest).getRequestURI().equals("/callback") && credentialManager.isEmptyToken()) {
+        if (!((HttpServletRequest) servletRequest).getRequestURI().equals("/callback") && credentialManager.isEmptyToken()) {
             ((HttpServletResponse) servletResponse).sendRedirect(authorizeUrl);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
