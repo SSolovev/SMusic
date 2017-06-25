@@ -19,8 +19,8 @@ public class RemoteMusicServicesController {
     }
 
     @RequestMapping(value = "/downloadService", method = RequestMethod.POST)
-    public String downloadSong(@RequestBody Song songJson) {
-        musicService.downloadSong(songJson);
+    public String downloadSong(@RequestBody Song songJson, @RequestParam String saveFolder) {
+        musicService.downloadSong(songJson, saveFolder);
         return "OK";
     }
 

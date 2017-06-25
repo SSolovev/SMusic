@@ -120,7 +120,7 @@ public class PleerNetService implements MusicService {
         return cloudDAO.getListOfFiles(token);
     }
 
-    public void downloadSong(Song song) {
+    public void downloadSong(Song song, String saveFolder) {
         logger.debug("Downloading song: {}", song);
         String resultString = getResponse(SERVICE_URL + DOWNLOAD_POSTFIX + song.getLink(), "POST");
         JSONParser parser = new JSONParser();
@@ -128,7 +128,7 @@ public class PleerNetService implements MusicService {
             Object response = parser.parse(resultString);
             String songUrl = (String) ((JSONObject) response).get("track_link");
             String songName = song.getSinger() + "-" + song.getSongName() + ".mp3";
-            cloudDAO.uploadToCloud(songUrl, songName);
+            cloudDAO.uploadToCloud(songUrl, songName, saveFolder);
 
         } catch (Exception e) {
             logger.error("Exception while downloading song to cloud, song:{}", song, e);

@@ -11,7 +11,7 @@ import java.util.List;
 public interface MusicService {
     List<Song> search(String songName);
 
-    void downloadSong(Song song);
+    void downloadSong(Song song, String saveFolder);
 
     String getSongUrl(String songLink);
 

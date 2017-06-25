@@ -47,20 +47,20 @@ public class YandexDiskDao implements CloudDAO {
     private RestTemplate restTemplate;
 
 
-    private String normalizeSongName(String songName) {
-        return songName.replaceAll("&#quote;", " ")
+    private String normalizeSongPath(String saveFolder, String songName) {
+        return saveFolder.replaceAll("[^\\d\\w._\\-\\/ ]","") + "/" + songName.replaceAll("&#quote;", " ")
                 .replaceAll("&#039;", " ")
                 .replaceAll("[$#@&:;{}\\[\\]\\']", "");
     }
 
     @Override
-    public void uploadToCloud(String songUrl, String songName) {
+    public void uploadToCloud(String songUrl, String songName, String folder) {
         logger.debug("Starting uploading songName:{}, songUrl:{}", songName, songUrl);
         HttpEntity requestEntity = HttpEntityBuilder.getInstance()
                 .addHeaderValue("Authorization", credentialManager.getToken())
                 .build();
 
-        String url = resourcesUrl + "/upload?path=SMusic/" + normalizeSongName(songName) + "&url=" + songUrl;
+        String url = resourcesUrl + "/upload?path=SMusic/" + normalizeSongPath(folder, songName) + "&url=" + songUrl;
 
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
                 String.class);

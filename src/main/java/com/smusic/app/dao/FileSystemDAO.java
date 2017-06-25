@@ -32,7 +32,7 @@ public class FileSystemDAO implements CloudDAO {
 //    }
 
     @Override
-    public void uploadToCloud(String songUrl, String songName) {
+    public void uploadToCloud(String songUrl, String songName, String folder) {
         try (InputStream in = getConnectionBinaryStream(songUrl, "GET");
              OutputStream out = new FileOutputStream(new File(mediaLibraryPath + songName))
         ) {

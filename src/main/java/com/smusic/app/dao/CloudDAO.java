@@ -9,7 +9,7 @@ public interface CloudDAO {
 
     void updateToken(String code);
 
-    void uploadToCloud(String songUrl, String songName);
+    void uploadToCloud(String songUrl, String songName, String folder);
 
     String getListOfFiles(String token);
 }
