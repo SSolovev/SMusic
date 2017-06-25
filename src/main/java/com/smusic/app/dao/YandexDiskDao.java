@@ -48,9 +48,13 @@ public class YandexDiskDao implements CloudDAO {
 
 
     private String normalizeSongPath(String saveFolder, String songName) {
-        return saveFolder.replaceAll("[^\\d\\w._\\-\\/ ]","") + "/" + songName.replaceAll("&#quote;", " ")
+        String songNameNorm = songName.replaceAll("&#quote;", " ")
                 .replaceAll("&#039;", " ")
                 .replaceAll("[$#@&:;{}\\[\\]\\']", "");
+        if (saveFolder != null && !saveFolder.isEmpty()) {
+            songNameNorm = saveFolder.replaceAll("[^\\d\\w._\\-\\/ ]", "") + "/" + songNameNorm;
+        }
+        return songNameNorm;
     }
 
     @Override
