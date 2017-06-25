@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-@Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CredentialManager implements Serializable{
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class CredentialManager implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -21,9 +21,10 @@ public class CredentialManager implements Serializable{
     private String userName;
     private String token;
 
-//    public CredentialManager credentialManager(){return new CredentialManager();}
+    //    public CredentialManager credentialManager(){return new CredentialManager();}
     public CredentialManager() {
     }
+
     public CredentialManager(String userName, String token) {
         this.userName = userName;
         this.token = token;
@@ -35,6 +36,10 @@ public class CredentialManager implements Serializable{
 
     public String getToken() {
         return token;
+    }
+
+    public boolean isEmptyToken() {
+        return token == null || token.isEmpty();
     }
 
     @Override
