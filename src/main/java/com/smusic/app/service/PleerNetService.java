@@ -6,6 +6,8 @@ import com.smusic.app.pojo.SongFields;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,8 @@ import java.util.regex.Pattern;
 @Component
 public class PleerNetService implements MusicService {
 
+    private final Logger logger = LoggerFactory.getLogger(PleerNetService.class);
+
     private static String SERVICE_URL = "http://pleer.net";
     private static String SEARCH_POSTFIX = "/search?q=";
     private static String DOWNLOAD_POSTFIX = "/site_api/files/get_url?action=download&id=";
@@ -37,12 +41,15 @@ public class PleerNetService implements MusicService {
     private SourceConnectionProvider connectionProvider;
 
     private List<Song> searchResultParser(String searchResultString) {
+        logger.debug("Start parsing resultString...");
         List<Song> result = new ArrayList<>();
         Map<SongFields, String> columnMap = new HashMap<>();
         Matcher m = SONG_SEARCH_PATTERN.matcher(searchResultString);
         while (m.find()) {
             columnMap.clear();
             String songString = m.group();
+
+            logger.debug("Song found: {}", songString);
 
             Matcher fieldsMatcher = SONG_FIELDS_PATTERN.matcher(songString);
             while (fieldsMatcher.find()) {
@@ -79,8 +86,9 @@ public class PleerNetService implements MusicService {
                 }
 
             }
+            logger.debug("Received response for url:{} method:{} resp:{}", url, method, sb.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Exception while getting response url:{} method:{}", url, method, e);
         }
 
         return sb.toString();
@@ -93,15 +101,17 @@ public class PleerNetService implements MusicService {
     }
 
     public String getSongUrl(String songLink) {
+        logger.debug("Get song from url: {}", songLink);
         String resultString = getResponse(SERVICE_URL + DOWNLOAD_POSTFIX + songLink, "POST");
         JSONParser parser = new JSONParser();
         Object response = null;
         try {
             response = parser.parse(resultString);
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error("Exception while parsing result from songLink:{} response:{}", songLink, response);
         }
         String songUrl = (String) ((JSONObject) response).get("track_link");
+        logger.debug("Received track link: {}", songUrl);
         return songUrl;
     }
 
@@ -111,8 +121,8 @@ public class PleerNetService implements MusicService {
     }
 
     public void downloadSong(Song song) {
+        logger.debug("Downloading song: {}", song);
         String resultString = getResponse(SERVICE_URL + DOWNLOAD_POSTFIX + song.getLink(), "POST");
-        System.out.println(resultString);
         JSONParser parser = new JSONParser();
         try {
             Object response = parser.parse(resultString);
@@ -121,7 +131,7 @@ public class PleerNetService implements MusicService {
             cloudDAO.uploadToCloud(songUrl, songName);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception while downloading song to cloud, song:{}", song, e);
         }
     }
 

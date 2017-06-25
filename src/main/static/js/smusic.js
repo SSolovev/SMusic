@@ -20,6 +20,12 @@ window.onload = function () {
     var sourcePlayer = $("#song-player-template").html();
     SONG_PLAYER_TEMPLATE = Handlebars.compile(sourcePlayer);
 
+    $(document).keypress(function(e){
+        if (e.which == 13){
+            $("#searchBtn").click();
+        }
+    });
+
 };
 
 function sendRequest(method, url, onReadyFunction, body) {
