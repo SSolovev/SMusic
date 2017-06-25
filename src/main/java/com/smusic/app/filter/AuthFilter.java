@@ -32,11 +32,11 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-//        if (!((HttpServletRequest) servletRequest).getRequestURI().equals("/callback") && credentialManager.isEmptyToken()) {
-//            ((HttpServletResponse) servletResponse).sendRedirect(authorizeUrl);
-//        } else {
+        if (!((HttpServletRequest) servletRequest).getRequestURI().equals("/callback") && credentialManager.isEmptyToken()) {
+            ((HttpServletResponse) servletResponse).sendRedirect(authorizeUrl);
+        } else {
             filterChain.doFilter(servletRequest, servletResponse);
-//        }
+        }
 
     }
 
