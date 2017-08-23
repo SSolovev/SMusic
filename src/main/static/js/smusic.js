@@ -73,7 +73,7 @@ function downloadSongToServer() {
     var link = this.getAttribute('link');
     var jsonSong = GLOBAL_SONG_MAP[link];
     var saveFolderStr = document.getElementById('saveFolder').value;
-    sendRequest("POST", "downloadService?saveFolder="+saveFolderStr.replace(/[^\d\w._\-\/ ]/g,''), function (xmlhttp) {
+    sendRequest("POST", "downloadService?saveFolder="+saveFolderStr.replace(/[^а-яА-ЯёЁ\d\w._\-\/ ]/g,''), function (xmlhttp) {
         alert("Download result: " + xmlhttp.responseText)
     }, JSON.stringify(jsonSong));
 

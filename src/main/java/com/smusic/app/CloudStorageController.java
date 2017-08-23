@@ -1,6 +1,7 @@
 package com.smusic.app;
 
 import com.smusic.app.dao.CloudDAO;
+import com.smusic.app.pojo.yad.Resource;
 import com.smusic.app.service.MusicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,18 @@ public class CloudStorageController {
     @RequestMapping("/getSongList")
     public String getSongList(@RequestParam String code) {
         return musicService.getListOfSongs(code);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getFileInfo")
+    public Resource getFileInfo(@RequestParam String file) {
+        return cloudDAO.getFileInfo(file);
+    }
+
+    @ResponseBody
+    @RequestMapping("/createDir")
+    public String createNewDir(@RequestParam String dirName) {
+        return cloudDAO.createNewDir(dirName);
     }
 
     @ResponseBody

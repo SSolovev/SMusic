@@ -1,8 +1,10 @@
 package com.smusic.app.service;
 
+import com.smusic.app.CloudCacheManager;
 import com.smusic.app.dao.CloudDAO;
 import com.smusic.app.pojo.Song;
 import com.smusic.app.pojo.SongFields;
+import com.smusic.app.pojo.yad.Resource;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -32,6 +34,9 @@ public class PleerNetService implements MusicService {
 
     private static Pattern SONG_SEARCH_PATTERN = Pattern.compile("<li duration=.+?>");
     private static Pattern SONG_FIELDS_PATTERN = Pattern.compile("(\\w+)=(\"[^\"\']*\"|\'[ ^\"\']*\')");
+
+    @Autowired
+    private CloudCacheManager cacheManager;
 
     @Autowired
     @Qualifier("yandexDiskDao")
@@ -128,7 +133,15 @@ public class PleerNetService implements MusicService {
             Object response = parser.parse(resultString);
             String songUrl = (String) ((JSONObject) response).get("track_link");
             String songName = song.getSinger() + "-" + song.getSongName() + ".mp3";
-            cloudDAO.uploadToCloud(songUrl, songName, saveFolder);
+
+            Resource res = cacheManager.getCachedResource(saveFolder);
+            if (res == null) {
+                cloudDAO.createNewDir(saveFolder);
+                res = cloudDAO.getFileInfo(saveFolder);
+                cacheManager.updateCachedResource(res);
+
+            }
+            cloudDAO.uploadToCloud(songUrl, songName, res.getPath());
 
         } catch (Exception e) {
             logger.error("Exception while downloading song to cloud, song:{}", song, e);
