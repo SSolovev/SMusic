@@ -1,5 +1,6 @@
 package com.smusic.app.dao;
 
+import com.smusic.app.pojo.yad.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +47,31 @@ public class FileSystemDAO implements CloudDAO {
 
     @Override
     public String getListOfFiles(String token) {
+        return null;
+    }
+
+    @Override
+    public Resource getRootFileInfo() {
+        return null;
+    }
+
+    @Override
+    public Resource getFileInfo(String file) {
+        return null;
+    }
+
+    @Override
+    public Resource getFileInfo(String file, int limit) {
+        return null;
+    }
+
+    @Override
+    public String createNewRootDir() {
+        return null;
+    }
+
+    @Override
+    public String createNewDir(String dirName) {
         return null;
     }
 

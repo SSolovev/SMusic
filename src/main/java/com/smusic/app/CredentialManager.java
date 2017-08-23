@@ -1,5 +1,6 @@
 package com.smusic.app;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,6 +20,7 @@ public class CredentialManager implements Serializable {
     }
 
     private String userName;
+    @Value("${dev.token}")
     private String token;
 
     //    public CredentialManager credentialManager(){return new CredentialManager();}

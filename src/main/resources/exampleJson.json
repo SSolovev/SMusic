@@ -1,0 +1,373 @@
+{
+  "_embedded": {
+    "sort": "",
+    "items": [
+      {
+        "name": "defaultName",
+        "exif": {},
+        "resource_id": "9677440:765d889a2bc40aef19dd201c34b56dae601a83272a3be81cfbf8cc4b43453a8c",
+        "created": "2017-08-20T18:24:30+00:00",
+        "modified": "2017-08-20T18:24:30+00:00",
+        "path": "disk:/SMusic/defaultName",
+        "comment_ids": {
+          "private_resource": "9677440:765d889a2bc40aef19dd201c34b56dae601a83272a3be81cfbf8cc4b43453a8c",
+          "public_resource": "9677440:765d889a2bc40aef19dd201c34b56dae601a83272a3be81cfbf8cc4b43453a8c"
+        },
+        "type": "dir",
+        "revision": 1503253470722970
+      },
+      {
+        "name": "t3",
+        "exif": {},
+        "resource_id": "9677440:423d8492630d920fcd21692f94545ff1ac9d1de09c57fe20ffd943d306aeea11",
+        "created": "2017-08-20T17:24:25+00:00",
+        "modified": "2017-08-20T17:24:25+00:00",
+        "path": "disk:/SMusic/t3",
+        "comment_ids": {
+          "private_resource": "9677440:423d8492630d920fcd21692f94545ff1ac9d1de09c57fe20ffd943d306aeea11",
+          "public_resource": "9677440:423d8492630d920fcd21692f94545ff1ac9d1de09c57fe20ffd943d306aeea11"
+        },
+        "type": "dir",
+        "revision": 1503249865751113
+      },
+      {
+        "name": "tst",
+        "exif": {},
+        "resource_id": "9677440:3305a7ce6e92a00badc4cc7a923653d1cc5d8c47143951bafb22ba2ea5d87bb2",
+        "created": "2017-08-20T14:01:58+00:00",
+        "modified": "2017-08-20T14:01:58+00:00",
+        "path": "disk:/SMusic/tst",
+        "comment_ids": {
+          "private_resource": "9677440:3305a7ce6e92a00badc4cc7a923653d1cc5d8c47143951bafb22ba2ea5d87bb2",
+          "public_resource": "9677440:3305a7ce6e92a00badc4cc7a923653d1cc5d8c47143951bafb22ba2ea5d87bb2"
+        },
+        "type": "dir",
+        "revision": 1503237718908446
+      },
+      {
+        "name": "ttt",
+        "exif": {},
+        "resource_id": "9677440:238542c3096c99bedf80ec0fdac510b1d75de524680c3cfd9fd970d928354609",
+        "created": "2017-08-20T17:21:42+00:00",
+        "modified": "2017-08-20T17:21:42+00:00",
+        "path": "disk:/SMusic/ttt",
+        "comment_ids": {
+          "private_resource": "9677440:238542c3096c99bedf80ec0fdac510b1d75de524680c3cfd9fd970d928354609",
+          "public_resource": "9677440:238542c3096c99bedf80ec0fdac510b1d75de524680c3cfd9fd970d928354609"
+        },
+        "type": "dir",
+        "revision": 1503249702198984
+      },
+      {
+        "name": "МумийТролль",
+        "exif": {},
+        "resource_id": "9677440:cab6ed7b98f95ff503ba89c5d2cec00900857e2ab5f55d37332c04068518840c",
+        "created": "2017-08-20T18:44:34+00:00",
+        "modified": "2017-08-20T18:44:34+00:00",
+        "path": "disk:/SMusic/МумийТролль",
+        "comment_ids": {
+          "private_resource": "9677440:cab6ed7b98f95ff503ba89c5d2cec00900857e2ab5f55d37332c04068518840c",
+          "public_resource": "9677440:cab6ed7b98f95ff503ba89c5d2cec00900857e2ab5f55d37332c04068518840c"
+        },
+        "type": "dir",
+        "revision": 1503254674901761
+      },
+      {
+        "name": "Новая папка",
+        "exif": {},
+        "resource_id": "9677440:d89594d25707b0b5e440932e8843e3729f52517f11f09ee80bae5ccd9c05656c",
+        "created": "2017-08-20T15:29:53+00:00",
+        "modified": "2017-08-20T15:29:53+00:00",
+        "path": "disk:/SMusic/Новая папка",
+        "comment_ids": {
+          "private_resource": "9677440:d89594d25707b0b5e440932e8843e3729f52517f11f09ee80bae5ccd9c05656c",
+          "public_resource": "9677440:d89594d25707b0b5e440932e8843e3729f52517f11f09ee80bae5ccd9c05656c"
+        },
+        "type": "dir",
+        "revision": 1503242993769425
+      },
+      {
+        "sha256": "b37f41c5f61afc8a3caa7329c11507f6b0847558e8746c3fcae8c71eec9b56c8",
+        "name": "Alessia Cara-Scars To Your Beautiful.mp3",
+        "exif": {},
+        "created": "2017-05-28T22:43:20+00:00",
+        "revision": 1496011400542553,
+        "resource_id": "9677440:c4298d5066222b46d870d2c1d26b5ec284a90f1c353298d0f7265e9b9cccbd83",
+        "modified": "2017-05-28T22:43:20+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:c4298d5066222b46d870d2c1d26b5ec284a90f1c353298d0f7265e9b9cccbd83",
+          "public_resource": "9677440:c4298d5066222b46d870d2c1d26b5ec284a90f1c353298d0f7265e9b9cccbd83"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Alessia Cara-Scars To Your Beautiful.mp3",
+        "md5": "151d98805f467e60737d5cd30b511bfa",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 7370640
+      },
+      {
+        "sha256": "5f5513b57c3ba03cbc4c3c818a654a1c3c4b57ada6418078d4e7757ef62545aa",
+        "name": "Alle Farben, Amice-Bad Ideas.mp3",
+        "exif": {},
+        "created": "2017-05-28T22:58:52+00:00",
+        "revision": 1496012332348117,
+        "resource_id": "9677440:0934c1600730d3dfa55b20a159b1afc373e9e1044690a55ba3dfaf2bbe5a1360",
+        "modified": "2017-05-28T22:58:52+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:0934c1600730d3dfa55b20a159b1afc373e9e1044690a55ba3dfaf2bbe5a1360",
+          "public_resource": "9677440:0934c1600730d3dfa55b20a159b1afc373e9e1044690a55ba3dfaf2bbe5a1360"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Alle Farben, Amice-Bad Ideas.mp3",
+        "md5": "9bf1b3b32a6e0ce9212dd9f1a2f204e8",
+        "type": "file",
+        "mime_type": "audio/mp3",
+        "size": 8578973
+      },
+      {
+        "sha256": "2553a118f4c79cc51921263ce49d9b074b2512c8f11a0076c916a38536fc2d0e",
+        "name": "Alle Farben-Bad Ideas.mp3",
+        "exif": {},
+        "created": "2017-05-28T22:59:22+00:00",
+        "revision": 1496012362905521,
+        "resource_id": "9677440:23cb71288621f97b06693e08f897a7bdd6713523b8544a4aac8a9a3300fb5686",
+        "modified": "2017-05-28T22:59:22+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:23cb71288621f97b06693e08f897a7bdd6713523b8544a4aac8a9a3300fb5686",
+          "public_resource": "9677440:23cb71288621f97b06693e08f897a7bdd6713523b8544a4aac8a9a3300fb5686"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Alle Farben-Bad Ideas.mp3",
+        "md5": "35a0dd2af3cf1f3cd74086a65ce8405b",
+        "type": "file",
+        "mime_type": "audio/mp3",
+        "size": 6970494
+      },
+      {
+        "sha256": "5b3e091f747bc1d4033fd1458d67fad5cd84ead71d5765d3f371cadc6d981664",
+        "name": "Ania Dabrowska-Bang Bang.mp3",
+        "exif": {},
+        "created": "2017-05-28T23:05:52+00:00",
+        "revision": 1496012752794001,
+        "resource_id": "9677440:e6a00f78d0775ff07cccb6998c225dea29ea8399ac7caa9d689f6a18c883d9a5",
+        "modified": "2017-05-28T23:05:52+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:e6a00f78d0775ff07cccb6998c225dea29ea8399ac7caa9d689f6a18c883d9a5",
+          "public_resource": "9677440:e6a00f78d0775ff07cccb6998c225dea29ea8399ac7caa9d689f6a18c883d9a5"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Ania Dabrowska-Bang Bang.mp3",
+        "md5": "02069aba2b2061eb5e13f81a73f46aa1",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 8799830
+      },
+      {
+        "sha256": "8124e1dcc93e4c1a20fa7b3df3a8090628ddd426c5e6acd04dda5232b6dc64b6",
+        "name": "Anne-Marie-Alarm.mp3",
+        "exif": {},
+        "created": "2017-05-28T23:24:19+00:00",
+        "revision": 1496013859863160,
+        "resource_id": "9677440:955fbd95722765d05d454a803929c8bff82c4930cc339596b41a80bf1316faa0",
+        "modified": "2017-05-28T23:24:19+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:955fbd95722765d05d454a803929c8bff82c4930cc339596b41a80bf1316faa0",
+          "public_resource": "9677440:955fbd95722765d05d454a803929c8bff82c4930cc339596b41a80bf1316faa0"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Anne-Marie-Alarm.mp3",
+        "md5": "af638fe7ec712f597699a0c99f510719",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 8583779
+      },
+      {
+        "sha256": "753621a044229429128dd1dd296b9f235fa65eeb043ca88e7a0cf65e7daab280",
+        "name": "Barillas-Andale (Playa Mix).mp3",
+        "exif": {},
+        "created": "2017-06-27T22:28:05+00:00",
+        "revision": 1498602485824301,
+        "resource_id": "9677440:4064158182cf3ae2ed08021f13f30cdfc2e2be370c3ff375a0b2c7d40f791dec",
+        "modified": "2017-06-27T22:28:05+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:4064158182cf3ae2ed08021f13f30cdfc2e2be370c3ff375a0b2c7d40f791dec",
+          "public_resource": "9677440:4064158182cf3ae2ed08021f13f30cdfc2e2be370c3ff375a0b2c7d40f791dec"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Barillas-Andale (Playa Mix).mp3",
+        "md5": "0c6f606ec1967656bf472b2ebb0f5730",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 8881573
+      },
+      {
+        "sha256": "1af5b6e623e6f857d66da7715e7d0305cab40c8f62592a10673323c96702fcd9",
+        "name": "Bob Dylan-Hurricane.mp3",
+        "exif": {},
+        "created": "2017-05-28T22:26:51+00:00",
+        "revision": 1496010412148560,
+        "resource_id": "9677440:f46a770123253180e12022a7928fd84bc77bf338da86cb81850403fba50e2eba",
+        "modified": "2017-05-28T22:26:51+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:f46a770123253180e12022a7928fd84bc77bf338da86cb81850403fba50e2eba",
+          "public_resource": "9677440:f46a770123253180e12022a7928fd84bc77bf338da86cb81850403fba50e2eba"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Bob Dylan-Hurricane.mp3",
+        "md5": "1c3f88c81d74afde993293203d4687ea",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 8187904
+      },
+      {
+        "sha256": "e6b85454befd0382acf22ead6cca988aa52314e198ab18824bb1e85f3d6dfb53",
+        "name": "Bob Dylan-Like A Rolling Stone.mp3",
+        "exif": {},
+        "created": "2017-05-28T22:25:58+00:00",
+        "revision": 1496010359068355,
+        "resource_id": "9677440:669fbbb0c281f41b51c4c5318e96d4eb04bd658a67bfff4ce7ae3d3081962f6a",
+        "modified": "2017-05-28T22:25:58+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:669fbbb0c281f41b51c4c5318e96d4eb04bd658a67bfff4ce7ae3d3081962f6a",
+          "public_resource": "9677440:669fbbb0c281f41b51c4c5318e96d4eb04bd658a67bfff4ce7ae3d3081962f6a"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Bob Dylan-Like A Rolling Stone.mp3",
+        "md5": "24cea919565996404ec8e3d25e367fa0",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 8898560
+      },
+      {
+        "sha256": "83facb0aca8c40bcb88c4140ff3c58a1a2ce8844ce9659ef0e9120d28266897c",
+        "name": "Bob Dylan-The Times They Are A-Changin039.mp3",
+        "exif": {},
+        "created": "2017-05-28T22:50:22+00:00",
+        "revision": 1496011822785144,
+        "resource_id": "9677440:df6e5f893efad0f17a086924097f7493fd2b49b700a62812d21ee69b59266974",
+        "modified": "2017-05-28T22:50:22+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:df6e5f893efad0f17a086924097f7493fd2b49b700a62812d21ee69b59266974",
+          "public_resource": "9677440:df6e5f893efad0f17a086924097f7493fd2b49b700a62812d21ee69b59266974"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Bob Dylan-The Times They Are A-Changin039.mp3",
+        "md5": "4dc9cc4bb9e4674c9814168e9ab60a40",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 7772160
+      },
+      {
+        "sha256": "ea09e13468e6a61fd67b1f6464d64db62e0469bcfe414c48a392981cf09563de",
+        "name": "Calvin Harris-My Way.mp3",
+        "exif": {},
+        "created": "2017-05-28T23:01:01+00:00",
+        "revision": 1496012462191929,
+        "resource_id": "9677440:93a400dd1b1217f12e9e98b9edf084d0c54eda1d51e0202801553a9493ba77c4",
+        "modified": "2017-05-28T23:01:01+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:93a400dd1b1217f12e9e98b9edf084d0c54eda1d51e0202801553a9493ba77c4",
+          "public_resource": "9677440:93a400dd1b1217f12e9e98b9edf084d0c54eda1d51e0202801553a9493ba77c4"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Calvin Harris-My Way.mp3",
+        "md5": "66098081a526c6cfc95a6f30ff49a028",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 8876888
+      },
+      {
+        "sha256": "84b35ebe079c00bcf97beecce824570d334c6cd6e1d6bbeab5d1c5ab32c29381",
+        "name": "Claude Debussy-Clair de Lune.mp3",
+        "exif": {},
+        "created": "2017-06-24T15:30:56+00:00",
+        "revision": 1498318256578173,
+        "resource_id": "9677440:f9f67d88c41a45806d41cbe6bfee5785ec50d92827e7d7d5c24ec7615fef0a25",
+        "modified": "2017-06-24T15:30:56+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:f9f67d88c41a45806d41cbe6bfee5785ec50d92827e7d7d5c24ec7615fef0a25",
+          "public_resource": "9677440:f9f67d88c41a45806d41cbe6bfee5785ec50d92827e7d7d5c24ec7615fef0a25"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Claude Debussy-Clair de Lune.mp3",
+        "md5": "20f4c788e57516ea750e88ea39498da1",
+        "type": "file",
+        "mime_type": "audio/mp3",
+        "size": 9961472
+      },
+      {
+        "sha256": "bbbb6230b40341008901a8abdbefdf4690ebd10677c8847f935c176594ab78f8",
+        "name": "Crash Test Dummies-Mmm Mmm Mmm Mmm.mp3",
+        "exif": {},
+        "created": "2017-06-25T20:17:47+00:00",
+        "revision": 1498421867654635,
+        "resource_id": "9677440:270aa2e28fd9c3bf5817d3f6b86ffd19eb77f54542f1fe759496c54eb3abc00e",
+        "modified": "2017-06-25T20:17:47+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:270aa2e28fd9c3bf5817d3f6b86ffd19eb77f54542f1fe759496c54eb3abc00e",
+          "public_resource": "9677440:270aa2e28fd9c3bf5817d3f6b86ffd19eb77f54542f1fe759496c54eb3abc00e"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/Crash Test Dummies-Mmm Mmm Mmm Mmm.mp3",
+        "md5": "36f15b06fec303bb8979154694ef64f9",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 9549167
+      },
+      {
+        "sha256": "afa179e5edfa8b4144e4857b3b69ab5afc64aa595aa784bc8c573f58dabfff52",
+        "name": "DDT-Просвистела.mp3",
+        "exif": {},
+        "created": "2017-06-23T21:38:29+00:00",
+        "revision": 1498253909629482,
+        "resource_id": "9677440:a53ed860b9d05d830731779feaf02a07941f0302cb073fd95f49ee7eb60916aa",
+        "modified": "2017-06-23T21:38:29+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:a53ed860b9d05d830731779feaf02a07941f0302cb073fd95f49ee7eb60916aa",
+          "public_resource": "9677440:a53ed860b9d05d830731779feaf02a07941f0302cb073fd95f49ee7eb60916aa"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/DDT-Просвистела.mp3",
+        "md5": "273cce076ad1fabf9b63b22832c669e2",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 3473408
+      },
+      {
+        "sha256": "2368bc4756724510e843382e488e4807b789d924c7e70ec9b02a11cdba8ce29f",
+        "name": "DDT-Что такое осень.mp3",
+        "exif": {},
+        "created": "2017-06-23T21:36:40+00:00",
+        "revision": 1498253801088531,
+        "resource_id": "9677440:37710868b6453d3536f6d0a5b9d70ac5cecf2bb2f701f163c972d78062a6773c",
+        "modified": "2017-06-23T21:36:40+00:00",
+        "comment_ids": {
+          "private_resource": "9677440:37710868b6453d3536f6d0a5b9d70ac5cecf2bb2f701f163c972d78062a6773c",
+          "public_resource": "9677440:37710868b6453d3536f6d0a5b9d70ac5cecf2bb2f701f163c972d78062a6773c"
+        },
+        "media_type": "audio",
+        "path": "disk:/SMusic/DDT-Что такое осень.mp3",
+        "md5": "b51d8a4c1845e514baa6021823f9b3a9",
+        "type": "file",
+        "mime_type": "audio/mpeg",
+        "size": 4780032
+      }
+    ],
+    "limit": 20,
+    "offset": 0,
+    "path": "disk:/SMusic",
+    "total": 78
+  },
+  "name": "SMusic",
+  "exif": {},
+  "created": "2017-05-28T20:06:11+00:00",
+  "resource_id": "9677440:8a82d821bfca125c406f58ab58cfe677c9b14cc22a5c9d7c2187c87275dfa8af",
+  "modified": "2017-05-28T20:06:11+00:00",
+  "path": "disk:/SMusic",
+  "comment_ids": {
+    "private_resource": "9677440:8a82d821bfca125c406f58ab58cfe677c9b14cc22a5c9d7c2187c87275dfa8af",
+    "public_resource": "9677440:8a82d821bfca125c406f58ab58cfe677c9b14cc22a5c9d7c2187c87275dfa8af"
+  },
+  "type": "dir",
+  "revision": 1496001971360588
+}
