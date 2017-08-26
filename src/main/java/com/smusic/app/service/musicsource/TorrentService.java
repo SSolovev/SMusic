@@ -1,4 +1,4 @@
-package com.smusic.app.service;
+package com.smusic.app.service.musicsource;
 
 //import jBittorrentAPI.Constants;
 //import jBittorrentAPI.DownloadManager;
@@ -9,6 +9,8 @@ package com.smusic.app.service;
 /**
  * Created by sergey on 29.04.17.
  */
+@Deprecated
+//TODO:think about implementation
 public class TorrentService {
 
 //    public void download(){

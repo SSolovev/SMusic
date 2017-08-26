@@ -1,18 +1,22 @@
-package com.smusic.app.dao;
+package com.smusic.app.service.cloudstorage;
 
-import com.smusic.app.pojo.yad.Resource;
+import com.smusic.app.service.cloudstorage.yandex.pojo.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by sergey on 28.05.17.
  */
 @Repository
-public class FileSystemDAO implements CloudDAO {
+public class FileSystemAccessService implements CloudAccessService {
 
     @Value("${fs.save.path}")
     private String mediaLibraryPath;
@@ -33,16 +37,42 @@ public class FileSystemDAO implements CloudDAO {
 //    }
 
     @Override
-    public void uploadToCloud(String songUrl, String songName, String folder) {
-        try (InputStream in = getConnectionBinaryStream(songUrl, "GET");
-             OutputStream out = new FileOutputStream(new File(mediaLibraryPath + songName))
-        ) {
+    public Future uploadToCloud(String songUrl, String songFullPath) {
+//        try (InputStream in = getConnectionBinaryStream(songUrl, "GET");
+//             OutputStream out = new FileOutputStream(new File(mediaLibraryPath + songName))
+//        ) {
+//
+//            writeSongToFile(in, out);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return new Future() {
+            @Override
+            public boolean cancel(boolean mayInterruptIfRunning) {
+                return false;
+            }
 
-            writeSongToFile(in, out);
+            @Override
+            public boolean isCancelled() {
+                return false;
+            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public boolean isDone() {
+                return false;
+            }
+
+            @Override
+            public Object get() throws InterruptedException, ExecutionException {
+                return null;
+            }
+
+            @Override
+            public Object get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+                return null;
+            }
+        };
     }
 
     @Override

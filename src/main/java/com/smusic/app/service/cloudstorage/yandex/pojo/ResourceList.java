@@ -1,4 +1,4 @@
-package com.smusic.app.pojo.yad;
+package com.smusic.app.service.cloudstorage.yandex.pojo;
 
 import java.util.Arrays;
 

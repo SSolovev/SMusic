@@ -1,4 +1,4 @@
-package com.smusic.app.service;
+package com.smusic.app.service.musicsource;
 
 import org.springframework.stereotype.Component;
 

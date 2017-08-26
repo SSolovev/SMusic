@@ -1,15 +1,15 @@
-package com.smusic.app;
+package com.smusic.app.controller;
 
 import com.smusic.app.pojo.Song;
-import com.smusic.app.service.MusicService;
+import com.smusic.app.service.musicsource.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-public class RemoteMusicServicesController {
+public class MusicServicesController {
 
     @Autowired
     private MusicService musicService;
@@ -28,5 +28,18 @@ public class RemoteMusicServicesController {
     @RequestMapping(value = "/getSongUrl", method = RequestMethod.GET)
     public String getSongUrl(@RequestParam String songLink) {
         return musicService.getSongUrl(songLink);
+    }
+
+
+
+//    @ResponseBody
+    @RequestMapping("/main/health")
+    public String healthChecker(Principal user) {
+        return "Greetings from Spring Boot!"+user;
+    }
+//    @ResponseBody
+    @RequestMapping("/main/login")
+    public String mainLogin() {
+        return "NICE";
     }
 }
