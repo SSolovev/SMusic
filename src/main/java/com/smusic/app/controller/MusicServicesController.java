@@ -1,15 +1,14 @@
-package com.smusic.app;
+package com.smusic.app.controller;
 
 import com.smusic.app.pojo.Song;
-import com.smusic.app.service.MusicService;
+import com.smusic.app.service.musicsource.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-public class RemoteMusicServicesController {
+public class MusicServicesController {
 
     @Autowired
     private MusicService musicService;

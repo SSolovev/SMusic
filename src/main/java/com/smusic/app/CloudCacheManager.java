@@ -1,8 +1,8 @@
 package com.smusic.app;
 
-import com.smusic.app.dao.CloudDAO;
-import com.smusic.app.pojo.yad.Resource;
-import com.smusic.app.pojo.yad.ResourceList;
+import com.smusic.app.service.cloudstorage.CloudAccessService;
+import com.smusic.app.service.cloudstorage.yandex.pojo.Resource;
+import com.smusic.app.service.cloudstorage.yandex.pojo.ResourceList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CloudCacheManager {
     @Autowired
-    @Qualifier("yandexDiskDao")
-    private CloudDAO cloudDAO;
+    @Qualifier("yandexDiskAccessService")
+    private CloudAccessService cloudAccessService;
 
     @Value("${yandex.root.path}")
     private String rootPath;
@@ -31,11 +31,11 @@ public class CloudCacheManager {
         dirCache = new ConcurrentHashMap<>();
         Resource root;
         try {
-            root = cloudDAO.getRootFileInfo();
+            root = cloudAccessService.getRootFileInfo();
         } catch (Exception e) {
             System.out.println("Root not exist: "+ e.getMessage());
-            cloudDAO.createNewRootDir();
-            root = cloudDAO.getRootFileInfo();
+            cloudAccessService.createNewRootDir();
+            root = cloudAccessService.getRootFileInfo();
         }
 
         dirCache.put(rootPath + "/", root);

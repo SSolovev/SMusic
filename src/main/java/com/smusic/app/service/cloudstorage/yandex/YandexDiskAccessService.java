@@ -1,14 +1,17 @@
-package com.smusic.app.dao;
+package com.smusic.app.service.cloudstorage.yandex;
 
 import com.smusic.app.CredentialManager;
-import com.smusic.app.pojo.HttpEntityBuilder;
+import com.smusic.app.service.cloudstorage.yandex.pojo.Link;
+import com.smusic.app.utils.HttpEntityBuilder;
 import com.smusic.app.pojo.Token;
-import com.smusic.app.pojo.UrlBuilder;
-import com.smusic.app.pojo.yad.Resource;
+import com.smusic.app.utils.UrlBuilder;
+import com.smusic.app.service.cloudstorage.yandex.pojo.Resource;
+import com.smusic.app.service.cloudstorage.CloudAccessService;
 import com.squareup.okhttp.OkHttpClient;
 import com.yandex.disk.rest.Credentials;
 import com.yandex.disk.rest.OkHttpClientFactory;
 import com.yandex.disk.rest.RestClient;
+import com.yandex.disk.rest.json.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +23,18 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 
 /**
  * Created by sergey on 28.05.17.
  */
 @Repository
-public class YandexDiskDao implements CloudDAO {
+public class YandexDiskAccessService implements CloudAccessService {
 
-    private final Logger logger = LoggerFactory.getLogger(YandexDiskDao.class);
-
-//    private static final String DEF_FILENAME = "defaultName";
+    private final Logger logger = LoggerFactory.getLogger(YandexDiskAccessService.class);
 
     private static final int DEF_LIMIT = 20;
 
@@ -59,48 +59,57 @@ public class YandexDiskDao implements CloudDAO {
     @Autowired
     private RestTemplate restTemplate;
 
-//    private String normilizeFileName(String filename) {
-//        String filenameNorm = filename.replaceAll("&#quote;", " ")
-//                .replaceAll("&#039;", " ")
-//                .replaceAll("[$#@&:;{}\\[\\]\\']", "");
-//        if (!filenameNorm.isEmpty()) {
-//            return filenameNorm;
-//        } else {
-//            return DEF_FILENAME;
-//        }
-//    }
-
-//    private String normalizeSongPath(String saveFolder, String songName) {
-//        String songNameNorm = normilizeFileName(songName);
-//        if (saveFolder != null && !saveFolder.isEmpty()) {
-//            songNameNorm = normilizeFileName(saveFolder) + "/" + songNameNorm;
-//        }
-//        return songNameNorm;
-//    }
+    @Autowired
+    ExecutorService globalExecutorPool;
 
     @Override
-    public void uploadToCloud(String songUrl, String songName, String path) {
-        logger.debug("Starting uploading songName:{}, songUrl:{}", songName, songUrl);
+    public Future<Operation> uploadToCloud(String songUrl, String songFullPath) {
+
+        logger.debug("Starting uploading song to path:{}, songUrl:{}", songFullPath, songUrl);
+
         HttpEntity requestEntity = HttpEntityBuilder.getInstance()
                 .addHeaderValue("Authorization", credentialManager.getToken()).build();
 
-        String url = UrlBuilder.getInstance(resourcesUrl + "/upload").addPath(path, songName).addSongUrl(songUrl).build();
-        ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST,
-                requestEntity, String.class);
-        logger.debug("Uploading complete songName:{}, songUrl:{}, responce:{}", songName, songUrl, result.getBody());
-    }
+        Callable<Operation> r = () -> {
 
-//    private Link getPathForUploading(String songName, String folder) {
-//        HttpEntity requestEntity = HttpEntityBuilder.getInstance()
-//                .addHeaderValue("Authorization", credentialManager.getToken())
-//                .build();
-//
-//        String url = resourcesUrl + "/upload?path=SMusic/" + normalizeSongPath(folder, songName) + "&overwrite=true";
-//
-//        ResponseEntity<Link> result = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-//                Link.class);
-//        return result.getBody();
-//    }
+            String url = UrlBuilder.getInstance(resourcesUrl + "/upload")
+                    .addPath(songFullPath)
+                    .addSongUrl(songUrl)
+                    .build();
+            ResponseEntity<Link> startUploadingResult = restTemplate.exchange(url, HttpMethod.POST,
+                    requestEntity, Link.class);
+            logger.debug("Uploading started songPath:{}, songUrl:{}, response:{}", songFullPath, songUrl, startUploadingResult.getBody());
+
+            Link linkOb = startUploadingResult.getBody();
+
+            ResponseEntity<Operation> result;
+            boolean repeat = false;
+            do {
+                Thread.sleep(500);
+                result = restTemplate.exchange(linkOb.getHref(), linkOb.getMethod(),
+                        requestEntity, Operation.class);
+
+                if (result.getBody().isInProgress()) {
+                    logger.debug("Uploading inProgress songPath:{}, response:{}", songFullPath, result.getBody());
+                    repeat = true;
+                } else if (result.getBody().isSuccess()) {
+                    logger.debug("Uploading Success songPath:{}, response:{}", songFullPath, result.getBody());
+                    repeat = false;
+                } else {
+                    logger.warn("Something goes wrong songPath:{}, response:{}", songFullPath, result.getBody());
+                    repeat = false;
+                }
+            } while (repeat);
+
+
+            logger.debug("Uploading finished songPath:{}, songUrl:{}, response:{}", songFullPath, songUrl, startUploadingResult.getBody());
+
+            return result.getBody();
+
+        };
+
+        return globalExecutorPool.submit(r);
+    }
 
     public String getToken(String code) {
         logger.debug("Requesting token for code:{} ", code);
@@ -138,7 +147,7 @@ public class YandexDiskDao implements CloudDAO {
         HttpEntity requestEntity = HttpEntityBuilder.getInstance()
                 .addHeaderValue("Authorization", credentialManager.getToken()).build();
         String url = UrlBuilder.getInstance(resourcesUrl).addPath(rootPath).build();
-        logger.debug("Requested url for RootFileInfo: {}",url);
+        logger.debug("Requested url for RootFileInfo: {}", url);
         ResponseEntity<Resource> result = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Resource.class);
 
         logger.debug("Received list of files for code:{} response:{}", result.getBody());
@@ -165,12 +174,14 @@ public class YandexDiskDao implements CloudDAO {
         return createNewDir("");
 
     }
+
     @Override
     public String createNewDir(String dirName) {
         HttpEntity requestEntity = HttpEntityBuilder.getInstance()
                 .addHeaderValue("Authorization", credentialManager.getToken())
                 .build();
-        String url = UrlBuilder.getInstance(resourcesUrl).addPath(rootPath, dirName).build();
+        String url = UrlBuilder.getInstance(resourcesUrl)
+                .addPath(rootPath, dirName).build();
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.PUT, requestEntity,
                 String.class);
 
@@ -179,15 +190,6 @@ public class YandexDiskDao implements CloudDAO {
 
     }
 
-//    private String getEncodedUrl(String... paths) {
-//        String fullPath = Arrays.stream(paths).map(this::normilizeFileName).collect(Collectors.joining("/"));
-//        try {
-//            return URLEncoder.encode(fullPath, "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            logger.error("Encoding exception:", e.getMessage());
-//            return fullPath;
-//        }
-//    }
 
     public static RestClient getInstance(final Credentials credentials) {
         OkHttpClient client = OkHttpClientFactory.makeClient();
