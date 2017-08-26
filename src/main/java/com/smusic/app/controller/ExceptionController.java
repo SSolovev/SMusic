@@ -1,4 +1,4 @@
-package com.smusic.app;
+package com.smusic.app.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

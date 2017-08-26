@@ -1,10 +1,12 @@
-package com.smusic.app.service;
+package com.smusic.app.service.musicsource;
 
 import com.smusic.app.CloudCacheManager;
-import com.smusic.app.dao.CloudDAO;
+import com.smusic.app.repository.SongDataDao;
+import com.smusic.app.repository.dto.SongData;
+import com.smusic.app.service.cloudstorage.CloudAccessService;
 import com.smusic.app.pojo.Song;
 import com.smusic.app.pojo.SongFields;
-import com.smusic.app.pojo.yad.Resource;
+import com.smusic.app.service.cloudstorage.yandex.pojo.Resource;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -12,18 +14,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+@Service
 public class PleerNetService implements MusicService {
 
     private final Logger logger = LoggerFactory.getLogger(PleerNetService.class);
@@ -39,11 +39,14 @@ public class PleerNetService implements MusicService {
     private CloudCacheManager cacheManager;
 
     @Autowired
-    @Qualifier("yandexDiskDao")
-    private CloudDAO cloudDAO;
+    @Qualifier("yandexDiskAccessService")
+    private CloudAccessService cloudAccessService;
 
     @Autowired
     private SourceConnectionProvider connectionProvider;
+
+    @Autowired
+    private SongDataDao songDao;
 
     private List<Song> searchResultParser(String searchResultString) {
         logger.debug("Start parsing resultString...");
@@ -122,7 +125,7 @@ public class PleerNetService implements MusicService {
 
     @Override
     public String getListOfSongs(String token) {
-        return cloudDAO.getListOfFiles(token);
+        return cloudAccessService.getListOfFiles(token);
     }
 
     public void downloadSong(Song song, String saveFolder) {
@@ -132,19 +135,33 @@ public class PleerNetService implements MusicService {
         try {
             Object response = parser.parse(resultString);
             String songUrl = (String) ((JSONObject) response).get("track_link");
-            String songName = song.getSinger() + "-" + song.getSongName() + ".mp3";
+            String songFullName = song.getSinger() + "-" + song.getSongName() + ".mp3";
 
             Resource res = cacheManager.getCachedResource(saveFolder);
             if (res == null) {
-                cloudDAO.createNewDir(saveFolder);
-                res = cloudDAO.getFileInfo(saveFolder);
+                cloudAccessService.createNewDir(saveFolder);
+                res = cloudAccessService.getFileInfo(saveFolder);
                 cacheManager.updateCachedResource(res);
 
             }
-            cloudDAO.uploadToCloud(songUrl, songName, res.getPath());
+
+            String songFullPath = res.getPath() + "/" + songFullName;
+            Future f = cloudAccessService.uploadToCloud(songUrl, songFullPath);
+
+            while (!(f.isDone() || f.isCancelled())) {
+                logger.debug("Downloading song: {}, status: {}", song, f.get());
+                Thread.sleep(500);
+            }
+            if (f.isDone()) {
+                SongData sd = new SongData(song, songFullPath, "dummyUser", new Date());
+                songDao.save(sd);
+            } else {
+                logger.error("Cant download song: {}, status: {}", song, f.get());
+            }
+
 
         } catch (Exception e) {
-            logger.error("Exception while downloading song to cloud, song:{}", song, e);
+            logger.error("Exception while downloading song to cloudstorage, song:{}", song, e);
         }
     }
 
