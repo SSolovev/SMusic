@@ -45,6 +45,11 @@ public class UrlBuilder {
         return this;
     }
 
+    public UrlBuilder addOverwrite(boolean isOverwrite) {
+        params.add("overwrite=" + isOverwrite);
+        return this;
+    }
+
     public UrlBuilder addFields(String... fields) {
         params.add("fields=" + String.join(",", fields));
         return this;

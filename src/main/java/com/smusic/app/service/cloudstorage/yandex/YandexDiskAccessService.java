@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -41,14 +43,14 @@ public class YandexDiskAccessService implements CloudAccessService {
     @Value("${yandex.resources.url}")
     private String resourcesUrl;
 
-    @Value("${yandex.token.url}")
-    private String tokenUrl;
-
-    @Value("${yandex.client.id}")
-    private String clientId;
-
-    @Value("${yandex.client.secret}")
-    private String clientSecret;
+//    @Value("${yandex.token.url}")
+//    private String tokenUrl;
+//
+//    @Value("${yandex.client.id}")
+//    private String clientId;
+//
+//    @Value("${yandex.client.secret}")
+//    private String clientSecret;
 
     @Value("${yandex.root.path}")
     private String rootPath;
@@ -60,11 +62,12 @@ public class YandexDiskAccessService implements CloudAccessService {
     private RestTemplate restTemplate;
 
     @Autowired
-    ExecutorService globalExecutorPool;
+    private ExecutorService globalExecutorPool;
+
+    private static final int LIMIT = 20;
 
     @Override
     public Future<Operation> uploadToCloud(String songUrl, String songFullPath) {
-
         logger.debug("Starting uploading song to path:{}, songUrl:{}", songFullPath, songUrl);
 
         HttpEntity requestEntity = HttpEntityBuilder.getInstance()
@@ -75,13 +78,15 @@ public class YandexDiskAccessService implements CloudAccessService {
             String url = UrlBuilder.getInstance(resourcesUrl + "/upload")
                     .addPath(songFullPath)
                     .addSongUrl(songUrl)
+                    .addOverwrite(true)
                     .build();
+
             ResponseEntity<Link> startUploadingResult = restTemplate.exchange(url, HttpMethod.POST,
                     requestEntity, Link.class);
             logger.debug("Uploading started songPath:{}, songUrl:{}, response:{}", songFullPath, songUrl, startUploadingResult.getBody());
 
             Link linkOb = startUploadingResult.getBody();
-
+            int counter = 0;
             ResponseEntity<Operation> result;
             boolean repeat = false;
             do {
@@ -91,7 +96,14 @@ public class YandexDiskAccessService implements CloudAccessService {
 
                 if (result.getBody().isInProgress()) {
                     logger.debug("Uploading inProgress songPath:{}, response:{}", songFullPath, result.getBody());
-                    repeat = true;
+                    counter++;
+                    if (counter < LIMIT) {
+                        repeat = true;
+                    } else {
+                        repeat = false;
+                        logger.debug("Exceed limit, canceled songPath:{}, response:{}", songFullPath, result.getBody());
+                    }
+
                 } else if (result.getBody().isSuccess()) {
                     logger.debug("Uploading Success songPath:{}, response:{}", songFullPath, result.getBody());
                     repeat = false;
@@ -112,23 +124,24 @@ public class YandexDiskAccessService implements CloudAccessService {
     }
 
     public String getToken(String code) {
-        logger.debug("Requesting token for code:{} ", code);
-        HttpEntity<MultiValueMap<String, String>> requestEntity = HttpEntityBuilder.getInstance()
-                .addHeaderValue("Content-type", "application/x-www-form-urlencoded")
-                .addBodyValue("grant_type", "authorization_code")
-                .addBodyValue("code", code)
-                .addBodyValue("client_id", clientId)
-                .addBodyValue("client_secret", clientSecret)
-                .build();
-
-        ResponseEntity<Token> result = restTemplate.postForEntity(tokenUrl, requestEntity, Token.class);
-        logger.debug("Received token for code:{} status:{} expire:{}", code, result.getStatusCode(), result.getBody().getExpires_in());
-        return result.getBody().getAccess_token();
+//        logger.debug("Requesting token for code:{} ", code);
+//        HttpEntity<MultiValueMap<String, String>> requestEntity = HttpEntityBuilder.getInstance()
+//                .addHeaderValue("Content-type", "application/x-www-form-urlencoded")
+//                .addBodyValue("grant_type", "authorization_code")
+//                .addBodyValue("code", code)
+//                .addBodyValue("client_id", clientId)
+//                .addBodyValue("client_secret", clientSecret)
+//                .build();
+//
+//        ResponseEntity<Token> result = restTemplate.postForEntity(tokenUrl, requestEntity, Token.class);
+//        logger.debug("Received token for code:{} status:{} expire:{}", code, result.getStatusCode(), result.getBody().getExpires_in());
+//        return result.getBody().getAccess_token();
+        return null;
     }
 
     @Override
     public void updateToken(String code) {
-        credentialManager.setToken(getToken(code));
+//        credentialManager.setToken(getToken(code));
     }
 
     @Override
